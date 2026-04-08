@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard – Church Check-In</title>
+  <meta name="description" content="Staff dashboard for managing church children's check-ins">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="admin-container">
+    <!-- Header -->
+    <div class="admin-header">
+      <div style="display:flex; align-items:center; gap: 12px;">
+        <img src="img/logo.png" alt="Word of Life Logo" style="height: 48px; object-fit: contain;">
+        <h1>Staff Dashboard</h1>
+      </div>
+      <button id="reset-btn" class="btn-danger" onclick="resetAll()">🗑️ Reset All</button>
+    </div>
+
+    <!-- QR Code Section -->
+    <div class="card qr-section" id="qr-section">
+      <h3 style="margin-bottom: 12px; color: var(--text-dark);">Check-In QR Code</h3>
+      <p style="margin-bottom: 12px; color: var(--text-muted); font-size: 0.9rem;">
+        Display or print this QR code for parents to scan
+      </p>
+      <img id="qr-img" alt="QR Code" style="display:none;">
+      <p id="qr-url" style="display:none;"></p>
+    </div>
+
+    <!-- Checkout Section -->
+    <div class="card" style="margin-bottom: 24px;">
+      <h3 style="margin-bottom: 12px; color: var(--text-dark);">🔑 Verify Pickup</h3>
+      <div class="checkout-bar">
+        <input type="text" id="checkout-input" placeholder="Enter pickup number" maxlength="4" inputmode="numeric">
+        <button class="btn-success" onclick="checkout()" id="checkout-btn">Check Out</button>
+      </div>
+      <p id="checkout-msg" style="font-size: 0.85rem; color: var(--text-muted); text-align: center;"></p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-number" id="stat-active">0</div>
+        <div class="stat-label">Checked In</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-out" style="color: var(--success);">0</div>
+        <div class="stat-label">Checked Out</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-total" style="color: var(--accent);">0</div>
+        <div class="stat-label">Total Today</div>
+      </div>
+    </div>
+
+    <!-- Check-ins Table -->
+    <div class="card" style="padding: 0; overflow: hidden;">
+      <div class="table-wrapper">
+        <table id="checkins-table">
+          <thead>
+            <tr>
+              <th>Pickup #</th>
+              <th>Child</th>
+              <th>Parent</th>
+              <th>Phone</th>
+              <th>Age</th>
+              <th>Allergies</th>
+              <th>Time In</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="checkins-body">
+          </tbody>
+        </table>
+      </div>
+      <div id="empty-state" class="empty-state" style="display:none;">
+        <div class="empty-icon">🧸</div>
+        <p>No children checked in yet.<br>Waiting for parents to scan the QR code...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

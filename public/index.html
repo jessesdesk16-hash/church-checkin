@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Church Kids Check-In</title>
+  <meta name="description" content="Safe and easy children's check-in for your church service">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- ── Check-In Form ── -->
+  <div id="checkin-view" class="container">
+    <div class="brand">
+      <img src="img/logo.png" alt="Word of Life Logo" class="church-logo">
+      <h1>Kids Check-In</h1>
+      <p class="subtitle">Welcome! Please fill in the details below to check in your child.</p>
+    </div>
+
+    <form id="checkin-form" class="card" autocomplete="off">
+      <div class="form-group">
+        <label for="parentName">
+          <span class="label-icon">👤</span> Parent / Guardian Name
+        </label>
+        <input type="text" id="parentName" name="parentName" placeholder="e.g. John Smith" required>
+      </div>
+
+      <div class="form-group">
+        <label for="phoneNumber">
+          <span class="label-icon">📱</span> Phone Number
+        </label>
+        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="e.g. 072 123 4567" required>
+      </div>
+
+      <div class="form-group">
+        <label for="childName">
+          <span class="label-icon">🧒</span> Child's Name
+        </label>
+        <input type="text" id="childName" name="childName" placeholder="e.g. Emma Smith" required>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="childAge">
+            <span class="label-icon">🎂</span> Age
+          </label>
+          <input type="number" id="childAge" name="childAge" placeholder="e.g. 5" min="0" max="17">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="allergies">
+          <span class="label-icon">⚠️</span> Allergies (if any)
+        </label>
+        <input type="text" id="allergies" name="allergies" placeholder="e.g. Peanuts, None">
+      </div>
+
+      <div class="form-group">
+        <label for="notes">
+          <span class="label-icon">📝</span> Special Notes
+        </label>
+        <textarea id="notes" name="notes" rows="2" placeholder="Any special instructions..."></textarea>
+      </div>
+
+      <button type="submit" id="submit-btn" class="btn-primary">
+        <span class="btn-text">Check In</span>
+        <span class="btn-loader" style="display:none;">
+          <span class="spinner"></span>
+        </span>
+      </button>
+    </form>
+  </div>
+
+  <!-- ── Success / Pickup Number View ── -->
+  <div id="success-view" class="container" style="display:none;">
+    <div class="success-card card">
+      <div class="success-icon">✅</div>
+      <h2>Checked In!</h2>
+      <p class="success-child-name" id="success-childName"></p>
+
+      <div class="pickup-section">
+        <p class="pickup-label">Your Pickup Number</p>
+        <div class="pickup-number" id="success-pickupNumber"></div>
+        <p class="pickup-hint">Please save or screenshot this number.<br>You'll need it to pick up your child.</p>
+      </div>
+
+      <button id="checkin-another" class="btn-secondary">Check In Another Child</button>
+    </div>
+  </div>
+
+  <!-- ── Checkout View ── -->
+  <div id="checkout-view" class="container" style="display:none;">
+    <div class="brand">
+      <img src="img/logo.png" alt="Word of Life Logo" class="church-logo">
+      <h1>Pick Up Child</h1>
+      <p class="subtitle">Enter your pickup number to check out your child.</p>
+    </div>
+
+    <div class="card">
+      <div class="form-group">
+        <label for="checkout-number">
+          <span class="label-icon">🔑</span> Pickup Number
+        </label>
+        <input type="text" id="checkout-number" placeholder="e.g. 101" maxlength="3" inputmode="numeric" style="text-align:center; font-size:1.5rem; font-weight:800; letter-spacing:0.1em;">
+      </div>
+      <button id="checkout-submit" class="btn-primary" style="background: linear-gradient(135deg, #22c67a, #17a566); box-shadow: 0 4px 16px rgba(34,198,122,0.3);">
+        <span class="btn-text">Check Out</span>
+      </button>
+      <p id="checkout-result" style="text-align:center; margin-top:14px; font-size:0.9rem;"></p>
+    </div>
+
+    <button id="back-to-checkin" class="btn-secondary" style="margin-top:16px; max-width:460px; display:block; margin-left:auto; margin-right:auto;">← Back to Check In</button>
+  </div>
+
+  <!-- ── Nav Toggle ── -->
+  <div class="nav-toggle">
+    <button id="nav-checkin" class="nav-btn nav-active">Check In</button>
+    <button id="nav-checkout" class="nav-btn">Check Out</button>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

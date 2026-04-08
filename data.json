@@ -1,0 +1,94 @@
+{
+  "checkins": [
+    {
+      "id": 1,
+      "parentName": "Emily Johnson",
+      "childName": "jesse",
+      "childAge": "10",
+      "allergies": "lemon",
+      "notes": "keep safe",
+      "pickupNumber": "4575",
+      "checkedIn": "2026-04-06T11:35:49.360Z",
+      "checkedOut": true,
+      "checkedOutAt": "2026-04-06T11:56:05.099Z"
+    },
+    {
+      "id": 2,
+      "parentName": "MRS CHIWAKIRA",
+      "childName": "jesse chiwakira",
+      "childAge": "10",
+      "allergies": "lemon",
+      "notes": "gay",
+      "pickupNumber": "101",
+      "checkedIn": "2026-04-06T11:39:56.377Z",
+      "checkedOut": true,
+      "checkedOutAt": "2026-04-06T11:43:36.815Z"
+    },
+    {
+      "id": 3,
+      "parentName": "mrs chiwakira",
+      "phoneNumber": "0772742611",
+      "childName": "jesse chiwakira",
+      "childAge": "10",
+      "allergies": "none",
+      "notes": "none",
+      "pickupNumber": "101",
+      "checkedIn": "2026-04-06T11:47:53.615Z",
+      "checkedOut": true,
+      "checkedOutAt": "2026-04-06T11:48:01.523Z"
+    },
+    {
+      "id": 4,
+      "parentName": "mrs chiwakira",
+      "phoneNumber": "0772742611",
+      "childName": "jesse chiwakira",
+      "childAge": "10",
+      "allergies": "none",
+      "notes": "none",
+      "pickupNumber": "102",
+      "checkedIn": "2026-04-06T11:52:24.879Z",
+      "checkedOut": true,
+      "checkedOutAt": "2026-04-06T11:52:34.004Z"
+    },
+    {
+      "id": 5,
+      "parentName": "mr chiwakira",
+      "phoneNumber": "0772749491",
+      "childName": "jesse chiwakira",
+      "childAge": "10",
+      "allergies": "none",
+      "notes": "none",
+      "pickupNumber": "103",
+      "checkedIn": "2026-04-06T12:21:18.205Z",
+      "checkedOut": true,
+      "checkedOutAt": "2026-04-06T12:21:33.817Z"
+    },
+    {
+      "id": 6,
+      "parentName": "Mrs Chiwakira",
+      "phoneNumber": "0772742611",
+      "childName": "Jesse Chiwakira",
+      "childAge": "10",
+      "allergies": "",
+      "notes": "",
+      "pickupNumber": "101",
+      "checkedIn": "2026-04-06T12:35:45.268Z",
+      "checkedOut": true,
+      "checkedOutAt": "2026-04-06T12:46:13.020Z"
+    },
+    {
+      "id": 7,
+      "parentName": "Mrs Chiwakira",
+      "phoneNumber": "0772742611",
+      "childName": "Kiana Chiwakira",
+      "childAge": "15",
+      "allergies": "",
+      "notes": "",
+      "pickupNumber": "102",
+      "checkedIn": "2026-04-06T12:36:58.311Z",
+      "checkedOut": true,
+      "checkedOutAt": "2026-04-06T12:37:36.185Z"
+    }
+  ],
+  "nextId": 8
+}
