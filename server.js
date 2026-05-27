@@ -125,6 +125,15 @@ app.post('/api/checkout', (req, res) => {
 
   record.checkedOut = true;
   record.checkedOutAt = new Date().toISOString();
+
+  // If all kids are now checked out, reset everything
+  const stillActive = checkins.filter(c => !c.checkedOut);
+  if (stillActive.length === 0) {
+    checkins = [];
+    nextId = 1;
+    nextPickupNumber = 101;
+  }
+
   saveData();
 
   res.json({
@@ -137,10 +146,8 @@ app.post('/api/checkout', (req, res) => {
 // Generate QR code image
 app.get('/api/qrcode', async (req, res) => {
   try {
-    // Generate URL using the actual local network IP so phones can connect
-    const protocol = req.protocol;
-    const localIp = getLocalIp();
-    const checkinUrl = `${protocol}://${localIp}:${PORT}`;
+    // Generate URL pointing to the live Render app, or fallback to local IP
+    const checkinUrl = process.env.RENDER_EXTERNAL_URL || 'https://church-checkin.onrender.com';
 
     const qrDataUrl = await QRCode.toDataURL(checkinUrl, {
       width: 400,
