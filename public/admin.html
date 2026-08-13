@@ -14,7 +14,7 @@
     <!-- Header -->
     <div class="admin-header">
       <div style="display:flex; align-items:center; gap: 12px;">
-        <img src="img/logo.png" alt="Word of Life Logo" style="height: 48px; object-fit: contain;">
+        <img src="img/logo.png" alt="Word of Life Logo" data-printer-menu style="height: 48px; object-fit: contain;">
         <h1>Staff Dashboard</h1>
       </div>
       <button id="reset-btn" class="btn-danger" onclick="resetAll()">🗑️ Reset All</button>
@@ -70,6 +70,7 @@
               <th>Allergies</th>
               <th>Time In</th>
               <th>Status</th>
+              <th>Label</th>
             </tr>
           </thead>
           <tbody id="checkins-body">
@@ -86,6 +87,12 @@
   <!-- Toast -->
   <div id="toast" class="toast"></div>
 
+  <!-- Printed labels are rendered here, then sent to the printer -->
+  <div id="print-root"></div>
+  <style id="page-rule"></style>
+
+  <script src="js/print.js"></script>
+  <script src="js/printer-ui.js"></script>
   <script src="js/admin.js"></script>
 </body>
 </html>

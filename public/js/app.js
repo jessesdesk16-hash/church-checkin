@@ -75,6 +75,7 @@
         checkinView.style.display = 'none';
         successView.style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        handleLabel(data.record);
       } else {
         alert(data.error || 'Something went wrong. Please try again.');
       }
@@ -93,6 +94,42 @@
     successView.style.display = 'none';
     checkinView.style.display = 'block';
     document.getElementById('parentName').focus();
+  });
+
+  // ── Label ───────────────────────────────────────────────────
+  // Only useful on the desk device that holds the Bluetooth printer;
+  // on a parent's own phone there is no printer, so nothing happens.
+  const printBtn = document.getElementById('print-label');
+  let lastRecord = null;
+
+  function canPrint() {
+    return LabelPrinter.getSettings().mode === 'system' || LabelPrinter.isConnected();
+  }
+
+  async function handleLabel(record) {
+    lastRecord = record;
+    printBtn.style.display = canPrint() ? 'block' : 'none';
+    printBtn.textContent = '🖨️ Print Label';
+
+    if (!record || !canPrint() || !LabelPrinter.getSettings().auto) return;
+    try {
+      await LabelPrinter.print([record]);
+    } catch (e) {
+      printBtn.textContent = '🖨️ Print again';
+    }
+  }
+
+  printBtn.addEventListener('click', async () => {
+    if (!lastRecord) return;
+    printBtn.disabled = true;
+    try {
+      await LabelPrinter.print([lastRecord]);
+      printBtn.textContent = '🖨️ Printed — print again';
+    } catch (e) {
+      printBtn.textContent = '🖨️ Failed — try again';
+    } finally {
+      printBtn.disabled = false;
+    }
   });
 
   // ── Checkout ────────────────────────────────────────────────

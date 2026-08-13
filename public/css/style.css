@@ -605,4 +605,420 @@ body {
   .stats-row {
     flex-direction: column;
   }
+  .ps-sheet {
+    padding: 10px 16px 24px;
+  }
+}
+
+/* ── Printer Sheet (long-press the logo) ─────────────────────── */
+.ps-holdable {
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.ps-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 30, 20, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 900;
+}
+
+.ps-sheet {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  width: min(460px, 100%);
+  max-height: 92vh;
+  overflow-y: auto;
+  transform: translate(-50%, 100%);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  background: #fff;
+  border-radius: 22px 22px 0 0;
+  box-shadow: 0 -8px 40px rgba(12, 30, 20, 0.22);
+  padding: 10px 22px 28px;
+  z-index: 901;
+}
+
+.ps-open .ps-backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ps-open .ps-sheet {
+  transform: translate(-50%, 0);
+}
+
+.ps-grip {
+  width: 42px;
+  height: 4px;
+  border-radius: 2px;
+  background: #d8e4dc;
+  margin: 4px auto 12px;
+}
+
+.ps-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.ps-head h3 {
+  font-size: 1.15rem;
+  color: var(--text-dark);
+}
+
+.ps-close {
+  border: none;
+  background: var(--input-bg);
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.ps-status {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.ps-status.ps-ready {
+  background: var(--success-bg);
+  color: #12925a;
+}
+
+.ps-status.ps-off {
+  background: #fdeef0;
+  color: #c0394f;
+}
+
+.ps-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+.ps-ready .ps-dot {
+  box-shadow: 0 0 0 4px rgba(34, 198, 122, 0.18);
+}
+
+.ps-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ps-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 12px 14px;
+  font-family: var(--font);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--primary-light);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.ps-btn:hover:not(:disabled) {
+  filter: brightness(0.95);
+}
+
+.ps-btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.ps-btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.ps-btn-quiet {
+  background: transparent;
+  color: var(--text-muted);
+  flex: none;
+}
+
+.ps-msg {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 10px;
+  min-height: 1.2em;
+  line-height: 1.4;
+}
+
+.ps-msg-ok {
+  color: #12925a;
+  font-weight: 600;
+}
+
+.ps-msg-bad {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.ps-section {
+  border-top: 1px solid #eef3ef;
+  margin-top: 16px;
+  padding-top: 14px;
+}
+
+.ps-switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 0.93rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+}
+
+.ps-switch input {
+  width: 19px;
+  height: 19px;
+  flex: none;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.ps-field {
+  display: block;
+  margin-top: 12px;
+}
+
+.ps-field > span {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+
+.ps-field select,
+.ps-field input {
+  width: 100%;
+  padding: 11px 12px;
+  font-family: var(--font);
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  background: var(--input-bg);
+  border: 1.5px solid var(--input-border);
+  border-radius: var(--radius-sm);
+  outline: none;
+}
+
+.ps-field select:focus,
+.ps-field input:focus {
+  border-color: var(--input-focus);
+}
+
+.ps-advanced {
+  border-top: 1px solid #eef3ef;
+  margin-top: 16px;
+  padding-top: 14px;
+}
+
+.ps-advanced summary {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.ps-hint {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-top: 16px;
+  text-align: center;
+}
+
+.btn-print-row {
+  padding: 5px 12px;
+  font-family: var(--font);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--primary-light);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-print-row:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* ── Labels ──────────────────────────────────────────────────── */
+#print-root {
+  display: none;
+}
+
+.print-label {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000;
+  line-height: 1.25;
+}
+
+.print-label .pl-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4pt;
+  font-size: 11pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1.5pt solid #000;
+  padding-bottom: 5pt;
+}
+
+.print-label .pl-logo {
+  height: 64pt;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.print-label .pl-kind {
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin: 5pt 0 2pt;
+}
+
+.print-label .pl-name {
+  font-size: 24pt;
+  font-weight: 800;
+  line-height: 1.05;
+  word-break: break-word;
+}
+
+.print-label .pl-sub {
+  font-size: 10pt;
+  font-weight: 600;
+}
+
+.print-label .pl-number {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 58pt;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-align: center;
+  line-height: 1.1;
+  margin: 10pt 0 6pt;
+}
+
+.print-label .pl-kids {
+  margin: 6pt 0;
+}
+
+.print-label .pl-kid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8pt;
+  border: 1.5pt solid #000;
+  border-radius: 4pt;
+  padding: 3pt 6pt;
+  margin-bottom: 4pt;
+}
+
+.print-label .pl-kid-name {
+  font-size: 12pt;
+  font-weight: 700;
+}
+
+.print-label .pl-kid-num {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 20pt;
+  font-weight: 700;
+}
+
+.print-label .pl-line {
+  font-size: 9.5pt;
+  margin-top: 2pt;
+}
+
+.print-label .pl-note {
+  font-style: italic;
+}
+
+.print-label .pl-alert {
+  font-size: 10.5pt;
+  font-weight: 800;
+  border: 2pt solid #000;
+  padding: 3pt 5pt;
+  margin-top: 5pt;
+}
+
+.print-label .pl-foot {
+  font-size: 8pt;
+  border-top: 1pt solid #000;
+  margin-top: 6pt;
+  padding-top: 3pt;
+}
+
+@media print {
+  body {
+    background: #fff !important;
+    padding: 0 !important;
+  }
+
+  .admin-container,
+  .container,
+  .nav-toggle,
+  .toast,
+  .ps-root,
+  .no-print {
+    display: none !important;
+  }
+
+  #print-root {
+    display: block !important;
+  }
+
+  .print-label {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Label roll: one label per label. */
+  .pr-roll .print-label {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .pr-roll .print-label:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  /* Plain paper: stack them with a cut line between. */
+  .pr-sheet .print-label {
+    max-width: 3.4in;
+    border-bottom: 1pt dashed #777;
+    padding-bottom: 16pt;
+    margin-bottom: 16pt;
+  }
 }

@@ -95,7 +95,8 @@ app.post('/api/checkin', (req, res) => {
     success: true,
     pickupNumber: record.pickupNumber,
     childName: record.childName,
-    parentName: record.parentName
+    parentName: record.parentName,
+    record // full details, so the check-in screen can print a label
   });
 });
 

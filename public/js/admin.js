@@ -9,6 +9,12 @@
   const checkoutMsg = document.getElementById('checkout-msg');
   const toast = document.getElementById('toast');
 
+  // Latest data from the server, so the row print buttons can find a record
+  let currentRecords = [];
+  // On the first poll we only take note of who is already checked in —
+  // opening the dashboard mid-service shouldn't reprint the whole room.
+  let firstLoad = true;
+
   // ── Load QR code ────────────────────────────────────────────
   async function loadQR() {
     try {
@@ -34,6 +40,9 @@
 
       const active = allData.filter(c => !c.checkedOut);
       const checkedOut = allData.filter(c => c.checkedOut);
+
+      currentRecords = allData;
+      handlePrinting(active);
 
       statActive.textContent = active.length;
       statOut.textContent = checkedOut.length;
@@ -65,6 +74,7 @@
             <td>${c.allergies ? escapeHtml(c.allergies) : '—'}</td>
             <td>${timeIn}</td>
             <td>${status}</td>
+            <td>${c.checkedOut ? '—' : `<button class="btn-print-row" onclick="printLabel(${c.id}, '${c.checkedIn}')">🖨️ Print</button>`}</td>
           </tr>
         `;
       }).join('');
@@ -76,6 +86,52 @@
 
   // Auto-refresh every 5 seconds
   setInterval(loadCheckins, 5000);
+
+  // ── Printing ───────────────────────────────────────────────
+  // Settings live behind a long-press on the logo (see printer-ui.js).
+
+  // Called on every poll: print whatever arrived since the last one.
+  async function handlePrinting(active) {
+    const isFirstLoad = firstLoad;
+    firstLoad = false;
+
+    const pending = LabelPrinter.unprinted(active);
+    if (!pending.length) return;
+
+    // Opening the dashboard mid-service shouldn't reprint the whole
+    // room, and there's nothing to catch up on when auto-print is off
+    // or no printer is connected to this station.
+    const settings = LabelPrinter.getSettings();
+    const ready = settings.mode === 'system' || LabelPrinter.isConnected();
+    if (isFirstLoad || !settings.auto || !ready) {
+      LabelPrinter.markPrinted(pending);
+      return;
+    }
+
+    try {
+      await LabelPrinter.print(pending);
+    } catch (e) {
+      showToast('🖨️ Printing failed — check the printer.', 'error');
+      LabelPrinter.markPrinted(pending);
+    }
+  }
+
+  // Reprint a single child's label from the table
+  window.printLabel = async function (id, checkedIn) {
+    const rec = currentRecords.find(c => c.id === id && c.checkedIn === checkedIn);
+    if (!rec) {
+      showToast('That check-in is no longer available.', 'error');
+      return;
+    }
+
+    try {
+      const result = await LabelPrinter.print([rec]);
+      if (result === 'printed') showToast(`🖨️ Label sent for ${rec.childName}`, 'success');
+      else showToast('No printer connected — hold the logo to set one up.', 'error');
+    } catch (e) {
+      showToast('Printing failed — check the printer is on.', 'error');
+    }
+  };
 
   // ── Checkout ───────────────────────────────────────────────
   window.checkout = async function () {
